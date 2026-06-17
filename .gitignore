@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+
+# vite
+.vite/
+
+# os / editor
+.DS_Store
+*.local
+*.log
+.idea/
+.vscode/
+
+# reference project — not part of this repo
+folio-2025/
+**/folio-2025/
