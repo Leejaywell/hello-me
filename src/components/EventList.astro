@@ -1,0 +1,51 @@
+---
+import { TIMELINE_TYPES } from '../lib/timeline'
+interface EventItem { date: Date; title: string; type: string; icon: string; link?: string; body: string }
+interface Props { events: EventItem[] }
+const { events } = Astro.props
+const labels: Record<string, string> = { all: '全部', life: '人生', project: '项目', place: '足迹', music: '音乐', milestone: '里程碑' }
+const fmt = (d: Date) => `${d.getFullYear()} · ${String(d.getMonth() + 1).padStart(2, '0')}`
+---
+<div class="filters" role="group">
+  {TIMELINE_TYPES.map((t) => (
+    <button class="chip" data-filter={t} aria-current={t === 'all'}>{labels[t]}</button>
+  ))}
+</div>
+<ol class="timeline">
+  {events.map((e) => (
+    <li class="event" data-type={e.type}>
+      <span class="dot">{e.icon}</span>
+      <div class="body">
+        <div class="date muted">{fmt(e.date)}</div>
+        <h3>{e.title}{e.link && <a class="more" href={e.link}> → 查看</a>}</h3>
+        <p class="muted">{e.body}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip { border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 4px 14px; cursor: pointer; font-family: var(--font); }
+  .chip[aria-current='true'] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .timeline { list-style: none; border-left: 3px solid color-mix(in srgb, var(--ink) 15%, transparent); margin-left: 12px; }
+  .event { position: relative; padding: 0 0 24px 28px; }
+  .event[hidden] { display: none; }
+  .dot { position: absolute; left: -16px; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
+  .more { font-size: 0.8rem; color: var(--accent); text-decoration: none; }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip')
+  const events = document.querySelectorAll<HTMLLIElement>('.event')
+  chips.forEach((c) =>
+    c.addEventListener('click', () => {
+      const f = c.dataset.filter!
+      chips.forEach((x) => x.setAttribute('aria-current', String(x === c)))
+      events.forEach((e) => {
+        const show = f === 'all' || e.dataset.type === f
+        e.hidden = !show
+      })
+    }),
+  )
+</script>

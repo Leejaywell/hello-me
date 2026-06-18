@@ -1,0 +1,36 @@
+---
+import '../styles/global.css'
+import TopNav from '../components/TopNav.astro'
+import { site } from '../config/site'
+import { DEFAULT_THEME } from '../lib/themes'
+interface Props { title?: string; description?: string }
+const { title, description = site.tagline } = Astro.props
+const pageTitle = title ? `${title} · ${site.name}` : site.name
+---
+<!doctype html>
+<html lang="zh-CN" data-theme={DEFAULT_THEME}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('site-theme')
+          if (t === 'cozy' || t === 'editorial') document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <TopNav />
+    <main class="container" style="padding-top:28px;padding-bottom:48px">
+      <slot />
+    </main>
+    <footer class="container muted" style="padding:24px 20px;font-size:13px">
+      © {new Date().getFullYear()} {site.name} · 用 Astro 记录
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+/* 每个主题 = 一组 CSS 变量。换肤 = 切 <html data-theme> */
+:root,
+[data-theme='cozy'] {
+  --bg: #fdf3df;
+  --surface: #fff8e7;
+  --ink: #794f27;
+  --muted: #9f927d;
+  --accent: #19c8b9;
+  --accent-ink: #ffffff;
+  --radius: 18px;
+  --shadow: 0 4px 12px rgba(61, 52, 40, 0.1);
+  --font: 'Nunito', 'Noto Sans SC', system-ui, sans-serif;
+  --maxw: 880px;
+}
+[data-theme='editorial'] {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #1a1a1a;
+  --accent-ink: #ffffff;
+  --radius: 2px;
+  --shadow: none;
+  --font: Georgia, 'Noto Serif SC', serif;
+  --maxw: 760px;
+}

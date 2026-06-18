@@ -1,0 +1,40 @@
+---
+import { THEMES } from '../lib/themes'
+---
+<div class="theme-switcher" role="group" aria-label="主题切换">
+  {THEMES.map((t) => (
+    <button class="theme-dot" data-theme-id={t.id} title={t.label}
+      style={`--dot:${t.swatch}`} aria-label={t.label}></button>
+  ))}
+</div>
+
+<style>
+  .theme-switcher { display: inline-flex; gap: 6px; }
+  .theme-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--dot); border: 2px solid var(--surface);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 20%, transparent);
+    cursor: pointer; padding: 0;
+  }
+  .theme-dot[aria-current='true'] { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<script>
+  import { DEFAULT_THEME, isTheme } from '../lib/themes'
+  const KEY = 'site-theme'
+  const apply = (id: string) => {
+    document.documentElement.setAttribute('data-theme', id)
+    document.querySelectorAll<HTMLButtonElement>('.theme-dot').forEach((b) =>
+      b.setAttribute('aria-current', String(b.dataset.themeId === id)),
+    )
+  }
+  const saved = localStorage.getItem(KEY)
+  apply(saved && isTheme(saved) ? saved : DEFAULT_THEME)
+  document.querySelectorAll<HTMLButtonElement>('.theme-dot').forEach((b) =>
+    b.addEventListener('click', () => {
+      const id = b.dataset.themeId!
+      localStorage.setItem(KEY, id)
+      apply(id)
+    }),
+  )
+</script>

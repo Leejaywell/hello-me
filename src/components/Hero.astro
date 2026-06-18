@@ -1,0 +1,16 @@
+---
+import { site } from '../config/site'
+---
+<section class="hero">
+  <img class="avatar" src={site.avatar} alt={site.name} width="84" height="84" />
+  <div>
+    <h1>你好,我是 {site.name}</h1>
+    <p class="muted">{site.tagline}</p>
+  </div>
+</section>
+<style>
+  .hero { display: flex; align-items: center; gap: 18px; margin: 18px 0 28px; }
+  .avatar { width: 84px; height: 84px; border-radius: 50%; box-shadow: var(--shadow); }
+  h1 { font-size: 1.8rem; }
+  @media (max-width: 480px) { .hero { flex-direction: column; text-align: center; } }
+</style>

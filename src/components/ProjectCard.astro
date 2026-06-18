@@ -1,0 +1,11 @@
+---
+interface Props { title: string; description: string; tags: string[]; href: string }
+const { title, description, tags, href } = Astro.props
+---
+<a class="card" href={href} style="padding:16px;text-decoration:none;display:block">
+  <h3>{title}</h3>
+  <p class="muted" style="margin:6px 0">{description}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">
+    {tags.map((t) => <span style="font-size:0.75rem;border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);border-radius:999px;padding:2px 10px">{t}</span>)}
+  </div>
+</a>

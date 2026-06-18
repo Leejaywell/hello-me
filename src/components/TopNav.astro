@@ -1,0 +1,25 @@
+---
+import { site, primaryNav } from '../config/site'
+import ThemeSwitcher from './ThemeSwitcher.astro'
+const nav = primaryNav()
+---
+<header class="topnav">
+  <div class="container row">
+    <a class="brand" href="/">🏝 {site.name}</a>
+    <nav class="links">
+      {nav.map((m) => <a href={m.href}>{m.label}</a>)}
+    </nav>
+    <ThemeSwitcher />
+  </div>
+</header>
+
+<style>
+  .topnav { background: var(--surface); border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent); }
+  .row { display: flex; align-items: center; gap: 16px; padding: 10px 20px; }
+  .brand { font-weight: 800; text-decoration: none; }
+  .links { display: flex; gap: 14px; margin-left: 6px; }
+  .links a { text-decoration: none; font-weight: 600; }
+  .links a:hover { color: var(--accent); }
+  .theme-switcher { margin-left: auto; }
+  @media (max-width: 560px) { .links { display: none; } .theme-switcher { margin-left: auto; } }
+</style>
