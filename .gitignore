@@ -21,3 +21,6 @@ folio-2025/
 
 # brainstorm visual companion
 .superpowers/
+
+# astro generated types
+.astro/
