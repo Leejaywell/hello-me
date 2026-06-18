@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro'
 import { getCollection } from 'astro:content'
+import { withBase } from '../../lib/url'
 const posts = (await getCollection('blog'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -11,7 +12,7 @@ const fmt = (d: Date) => d.toLocaleDateString('zh-CN')
   <ul style="list-style:none;display:grid;gap:12px">
     {posts.map((p) => (
       <li class="card" style="padding:16px">
-        <a href={`/blog/${p.id}`} style="text-decoration:none">
+        <a href={withBase(`/blog/${p.id}`)} style="text-decoration:none">
           <h3>{p.data.title}</h3>
           <p class="muted" style="font-size:0.85rem">{fmt(p.data.date)} · {p.data.tags.join(' / ')}</p>
         </a>

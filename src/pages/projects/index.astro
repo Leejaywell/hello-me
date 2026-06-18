@@ -2,13 +2,14 @@
 import Base from '../../layouts/Base.astro'
 import ProjectCard from '../../components/ProjectCard.astro'
 import { getCollection } from 'astro:content'
+import { withBase } from '../../lib/url'
 const projects = (await getCollection('projects')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 ---
 <Base title="项目">
   <h1 style="margin-bottom:18px">项目</h1>
   <section class="pgrid">
     {projects.map((p) => (
-      <ProjectCard title={p.data.title} description={p.data.description} tags={p.data.tags} href={`/projects/${p.id}`} />
+      <ProjectCard title={p.data.title} description={p.data.description} tags={p.data.tags} href={withBase(`/projects/${p.id}`)} />
     ))}
   </section>
 </Base>

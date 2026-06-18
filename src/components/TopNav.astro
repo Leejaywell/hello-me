@@ -1,13 +1,14 @@
 ---
 import { site, primaryNav } from '../config/site'
+import { withBase } from '../lib/url'
 import ThemeSwitcher from './ThemeSwitcher.astro'
 const nav = primaryNav()
 ---
 <header class="topnav">
   <div class="container row">
-    <a class="brand" href="/">🏝 {site.name}</a>
+    <a class="brand" href={withBase('/')}>🏝 {site.name}</a>
     <nav class="links">
-      {nav.map((m) => <a href={m.href}>{m.label}</a>)}
+      {nav.map((m) => <a href={withBase(m.href)}>{m.label}</a>)}
     </nav>
     <ThemeSwitcher />
   </div>

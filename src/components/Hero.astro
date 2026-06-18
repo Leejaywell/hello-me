@@ -1,8 +1,9 @@
 ---
 import { site } from '../config/site'
+import { withBase } from '../lib/url'
 ---
 <section class="hero">
-  <img class="avatar" src={site.avatar} alt={site.name} width="84" height="84" />
+  <img class="avatar" src={withBase(site.avatar)} alt={site.name} width="84" height="84" />
   <div>
     <h1>你好,我是 {site.name}</h1>
     <p class="muted">{site.tagline}</p>

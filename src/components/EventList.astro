@@ -1,5 +1,6 @@
 ---
 import { TIMELINE_TYPES } from '../lib/timeline'
+import { withBase } from '../lib/url'
 interface EventItem { date: Date; title: string; type: string; icon: string; link?: string; body: string }
 interface Props { events: EventItem[] }
 const { events } = Astro.props
@@ -17,7 +18,7 @@ const fmt = (d: Date) => `${d.getFullYear()} · ${String(d.getMonth() + 1).padSt
       <span class="dot">{e.icon}</span>
       <div class="body">
         <div class="date muted">{fmt(e.date)}</div>
-        <h3>{e.title}{e.link && <a class="more" href={e.link}> → 查看</a>}</h3>
+        <h3>{e.title}{e.link && <a class="more" href={withBase(e.link)}> → 查看</a>}</h3>
         <p class="muted">{e.body}</p>
       </div>
     </li>

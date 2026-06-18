@@ -2,6 +2,7 @@
 import '../styles/global.css'
 import TopNav from '../components/TopNav.astro'
 import { site } from '../config/site'
+import { withBase } from '../lib/url'
 import { DEFAULT_THEME } from '../lib/themes'
 interface Props { title?: string; description?: string }
 const { title, description = site.tagline } = Astro.props
@@ -14,7 +15,7 @@ const pageTitle = title ? `${title} · ${site.name}` : site.name
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href={withBase('/favicon.svg')} />
     <script is:inline>
       (function () {
         try {
