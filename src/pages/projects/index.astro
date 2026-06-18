@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { getCollection } from 'astro:content'
+const projects = (await getCollection('projects')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+---
+<Base title="项目">
+  <h1 style="margin-bottom:18px">项目</h1>
+  <section class="pgrid">
+    {projects.map((p) => (
+      <ProjectCard title={p.data.title} description={p.data.description} tags={p.data.tags} href={`/projects/${p.id}`} />
+    ))}
+  </section>
+</Base>
+<style>
+  .pgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 560px) { .pgrid { grid-template-columns: 1fr; } }
+</style>

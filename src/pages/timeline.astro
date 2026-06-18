@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro'
+import EventList from '../components/EventList.astro'
+import { getCollection } from 'astro:content'
+import { sortEventsByDate } from '../lib/timeline'
+const raw = await getCollection('timeline')
+const events = sortEventsByDate(
+  raw.map((e) => ({ ...e.data, body: e.body ?? '' })),
+)
+---
+<Base title="人生时间轴">
+  <h1 style="margin-bottom:18px">人生时间轴</h1>
+  <EventList events={events} />
+</Base>

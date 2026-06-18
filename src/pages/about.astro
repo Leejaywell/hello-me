@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro'
+import { getCollection, render } from 'astro:content'
+const [me] = await getCollection('about')
+const { Content } = await render(me)
+---
+<Base title="关于我">
+  <article class="card" style="padding:24px">
+    <header style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+      {me.data.avatar && <img src={me.data.avatar} alt={me.data.name} width="72" height="72" style="border-radius:50%" />}
+      <div>
+        <h1>{me.data.name}</h1>
+        <p class="muted">{me.data.role}</p>
+      </div>
+    </header>
+    <div class="prose"><Content /></div>
+    <nav style="margin-top:18px;display:flex;gap:12px">
+      {me.data.socials.map((s) => <a class="btn" href={s.url} target="_blank" rel="noreferrer">{s.icon} {s.name}</a>)}
+    </nav>
+  </article>
+</Base>

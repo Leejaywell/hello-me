@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro'
+import Hero from '../components/Hero.astro'
+import ModuleCard from '../components/ModuleCard.astro'
+import { site } from '../config/site'
+---
+<Base>
+  <Hero />
+  <section class="grid">
+    {site.modules.map((m) => (
+      <ModuleCard icon={m.icon} label={m.label} href={m.href} disabled={!m.enabled} />
+    ))}
+  </section>
+</Base>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
